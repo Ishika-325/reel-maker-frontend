@@ -1,138 +1,175 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
-import {
-  Play,
-  Video,
-  Music,
-  Sparkles,
-  Type,
-  Layers,
-  Share2,
-  Plus,
-  Search,
-  Settings,
-  LayoutGrid,
-  Zap,
-  Scissors
-} from 'lucide-react';
+// LandingPage.jsx
+import React, { useEffect } from "react";
+import { useNavigate } from "react-router-dom";
+import AOS from "aos";
+import "aos/dist/aos.css";
+import demoVideo from "../assets/reel_maker_Demo.mp4";
 
-/* Sidebar Icon */
-const SidebarIcon = ({ icon: Icon, active = false }) => (
-  <div
-    className={`p-3 cursor-pointer rounded-2xl transition-all duration-300 ${
-      active
-        ? 'bg-indigo-600 text-white shadow-lg shadow-indigo-200'
-        : 'text-slate-400 hover:bg-white hover:text-indigo-600'
-    }`}
-  >
-    <Icon size={22} />
-  </div>
-);
+const LandingPage = () => {
+  const navigate = useNavigate();
 
-/* Tool Button */
-const ToolButton = ({ icon: Icon, label }) => (
-  <button className="flex items-center gap-2 bg-white/80 hover:bg-white border border-white px-5 py-2.5 rounded-2xl shadow-sm transition-all hover:shadow-md group">
-    <Icon size={18} className="text-slate-600 group-hover:text-indigo-600" />
-    <span className="text-sm font-semibold text-slate-700">{label}</span>
-  </button>
-);
+  useEffect(() => {
+    AOS.init({ duration: 1000, once: true });
+  }, []);
 
-const Landing = () => {
   return (
-    <>
-      {/* ================= TOP NAVBAR ================= */}
-      <nav className="fixed top-0 left-0 right-0 h-16 bg-white/70 backdrop-blur-xl border-b border-white/60 z-50 flex items-center justify-between px-6">
-        {/* Logo */}
-        <div className="flex items-center gap-2">
-          <div className="w-9 h-9 bg-indigo-600 rounded-xl flex items-center justify-center shadow-md">
-            <Video size={18} className="text-white" />
-          </div>
-          <span className="font-bold text-lg bg-clip-text text-transparent bg-gradient-to-r from-indigo-600 to-violet-600">
-            ReelCraft AI
-          </span>
+    <div className="font-sans text-gray-900">
+      {/* Hero Section */}
+      <section className="relative h-screen flex flex-col justify-center items-center text-center bg-gradient-to-r from-purple-600 to-indigo-500 overflow-hidden">
+        {/* Background animated shapes */}
+        <div className="absolute top-0 left-0 w-full h-full">
+          <div className="animate-ping absolute top-10 left-1/4 w-32 h-32 bg-white opacity-20 rounded-full"></div>
+          <div className="animate-pulse absolute bottom-20 right-1/4 w-48 h-48 bg-white opacity-10 rounded-full"></div>
         </div>
 
-        {/* Login Button */}
-        <Link to="/login" className="px-6 py-2 rounded-xl bg-indigo-600 text-white text-sm font-semibold hover:bg-indigo-700 transition shadow-md">
-          Login
-        </Link>
-      </nav>
+        <h1 className="text-5xl md:text-6xl font-bold text-white z-10 mb-4">
+          🎬 ReelMaker
+        </h1>
+        <p className="text-xl md:text-2xl text-white mb-6 z-10">
+          Create stunning short video reels from your photos and music in seconds!
+        </p>
+        <div className="flex gap-4 z-10">
+          <button
+            onClick={() => navigate("/login")}
+            className="bg-white text-purple-600 px-6 py-3 rounded-xl font-semibold shadow-lg hover:scale-105 transition-transform"
+          >
+            Login
+          </button>
+          <a
+            href="#demo"
+            className="border border-white px-6 py-3 rounded-xl font-semibold text-white hover:bg-white hover:text-purple-600 transition"
+          >
+            View Demo
+          </a>
+        </div>
+      </section>
 
-      {/* ================= PAGE CONTENT ================= */}
-      <div className="min-h-screen bg-[#F8FAFF] flex p-4 lg:p-6 pt-20 font-sans antialiased text-slate-900">
-        
-        {/* Background Decorations */}
-        <div className="fixed top-0 right-0 w-[600px] h-[600px] bg-blue-100/40 rounded-full blur-[120px] -z-10" />
-        <div className="fixed bottom-0 left-0 w-[500px] h-[500px] bg-indigo-100/30 rounded-full blur-[100px] -z-10" />
-
-        {/* ================= SIDEBAR ================= */}
-       
-
-        {/* ================= MAIN CONTENT ================= */}
-        <main className="flex-1 flex flex-col">
-          
-          {/* Hero Section */}
-          <section className="relative grid grid-cols-1 xl:grid-cols-12 gap-8 mb-8">
-            <div className="xl:col-span-8">
-              <div className="bg-white/70 backdrop-blur-2xl border border-white rounded-[48px] p-6 shadow-xl">
-                <div className="aspect-video bg-slate-900 rounded-[32px] relative flex items-center justify-center overflow-hidden">
-                  <div className="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1536240478700-b869070f9279')] bg-cover bg-center opacity-60" />
-                  <button className="relative z-10 w-20 h-20 bg-white/20 backdrop-blur-md rounded-full flex items-center justify-center border border-white/30 hover:scale-110 transition-transform">
-                    <Play fill="white" size={32} />
-                  </button>
-                </div>
-
-                <div className="mt-6 flex flex-wrap gap-3">
-                  <ToolButton icon={Type} label="Auto Captions" />
-                  <ToolButton icon={Music} label="Sync Music" />
-                  <ToolButton icon={Sparkles} label="Magic Transitions" />
-                  <ToolButton icon={Scissors} label="Smart Cut" />
-                </div>
-              </div>
+      {/* Features Section */}
+      <section className="py-20 px-4 bg-gray-50 text-center">
+        <h2 className="text-3xl md:text-4xl font-bold mb-12" data-aos="fade-up">
+          Features
+        </h2>
+        <div className="grid md:grid-cols-4 gap-8 max-w-6xl mx-auto">
+          {[
+            { title: "📸 Easy Photo Upload", desc: "Drag & drop your photos or upload from your device." },
+            { title: "🎵 Music Integration", desc: "Add your favorite tracks using the Audius API." },
+            { title: "🎬 Reel Generation", desc: "Powered by FFmpeg for fast, high-quality videos." },
+            { title: "🔒 Secure & Interactive", desc: "User accounts, authentication, and cloud storage." }
+          ].map((feature, idx) => (
+            <div
+              key={idx}
+              className="bg-white p-6 rounded-xl shadow-lg hover:shadow-2xl transition transform hover:-translate-y-2"
+              data-aos="fade-up"
+              data-aos-delay={idx * 100}
+            >
+              <h3 className="font-semibold mb-2 text-lg">{feature.title}</h3>
+              <p className="text-gray-600">{feature.desc}</p>
             </div>
+          ))}
+        </div>
+      </section>
 
-            {/* Right Panel */}
-            <div className="xl:col-span-4 flex flex-col gap-6">
-              <div className="bg-indigo-600 rounded-[40px] p-8 text-white shadow-xl">
-                <Zap className="absolute -top-6 -right-6 text-white/10 w-32 h-32 rotate-12" />
-                <h3 className="text-2xl font-bold mb-2">Go Viral with AI</h3>
-                <p className="text-indigo-100 text-sm mb-6">
-                  AI analyzes trending sounds and auto-edits your reels.
-                </p>
-                <button className="bg-white text-indigo-600 px-6 py-3 rounded-2xl text-sm font-bold">
-                  Try Auto-Edit
-                </button>
+      {/* How It Works Section */}
+      <section className="py-20 px-4 max-w-4xl mx-auto text-center">
+        <h2 className="text-3xl md:text-4xl font-bold mb-12" data-aos="fade-up">
+          How It Works
+        </h2>
+        <div className="space-y-8">
+          {[
+            "Sign up or log in",
+            "Upload photos & select a music track",
+            "Click Generate Reel",
+            "Download or share your reel instantly"
+          ].map((step, idx) => (
+            <div
+              key={idx}
+              className="flex items-center justify-center gap-4 text-lg md:text-xl"
+              data-aos="fade-right"
+              data-aos-delay={idx * 150}
+            >
+              <div className="w-10 h-10 bg-purple-600 text-white rounded-full flex items-center justify-center font-bold">
+                {idx + 1}
               </div>
-
-              <div className="bg-white/70 backdrop-blur-xl border border-white rounded-[40px] p-8">
-                <h4 className="font-bold text-slate-800 mb-4">
-                  Trending Templates
-                </h4>
-                {[1, 2, 3].map((i) => (
-                  <div key={i} className="flex items-center gap-4 mb-4">
-                    <div className="w-14 h-14 rounded-2xl bg-gradient-to-br from-pink-400 to-violet-500" />
-                    <div>
-                      <p className="text-sm font-bold">Vogue Aesthetic #{i}</p>
-                      <p className="text-xs text-slate-400">2.4k creators</p>
-                    </div>
-                  </div>
-                ))}
-              </div>
+              <p>{step}</p>
             </div>
-          </section>
+          ))}
+        </div>
+      </section>
 
-          {/* Footer */}
-          <footer className="mt-auto py-6 px-4 bg-white/30 rounded-[32px] border border-white/50 flex justify-between items-center">
-            <p className="text-xs font-semibold text-slate-500 uppercase tracking-widest">
-              Join 50k+ creators
-            </p>
-            <Share2 size={16} className="text-slate-600" />
-          </footer>
+      {/* Demo Section */}
+      <section id="demo" className="py-20 px-4 bg-gray-100 text-center">
+        <h2 className="text-3xl md:text-4xl font-bold mb-8" data-aos="fade-up">
+          Live Demo
+        </h2>
+        <p className="mb-6 text-gray-700" data-aos="fade-up" data-aos-delay={100}>
+          See ReelMaker in action!
+        </p>
+        <div className="max-w-4xl mx-auto mb-6" data-aos="fade-up" data-aos-delay={150}>
+          <video
+            className="rounded-xl shadow-lg w-full h-auto max-h-96"
+            autoPlay
+            loop
+            muted
+            playsInline
+          >
+            <source src={demoVideo} type="video/mp4" />
+            Your browser does not support the video tag.
+          </video>
+        </div>
+        <a
+          href="https://github.com/Ishika-325/reel-maker-frontend"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="inline-block bg-purple-600 text-white px-6 py-3 rounded-xl font-semibold shadow-lg hover:bg-indigo-700 transition"
+          data-aos="fade-up"
+          data-aos-delay={200}
+        >
+          View on GitHub
+        </a>
+      </section>
 
-        </main>
+      {/* Tech Stack Section */}
+<section className="py-20 px-4 bg-gray-50 text-center">
+  <h2
+    className="text-3xl md:text-4xl font-bold mb-12"
+    data-aos="fade-up"
+  >
+    Tech Stack
+  </h2>
+
+  <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-8 max-w-6xl mx-auto">
+    {[
+      { name: "ReactJS", color: "bg-purple-50", icon: "⚛️" },
+      { name: "Node.js & Express", color: "bg-purple-50", icon: "🟢" },
+      { name: "MongoDB", color: "bg-purple-50", icon: "🍃" },
+      { name: "FFmpeg", color: "bg-purple-50", icon: "🎬" },
+      { name: "Audius API", color: "bg-purple-50", icon: "🎵" },
+    ].map((tech, idx) => (
+      <div
+        key={idx}
+        className={`flex flex-col items-center p-6 rounded-xl shadow-lg hover:shadow-2xl transition transform hover:-translate-y-2 ${tech.color} text-black`}
+        data-aos="fade-up"
+        data-aos-delay={idx * 150}
+      >
+        <div className="text-4xl mb-4">{tech.icon}</div>
+        <h3 className="font-semibold text-lg text-black-900">{tech.name}</h3>
       </div>
-    </>
+    ))}
+  </div>
+</section>
+
+
+      {/* Footer */}
+      <footer className="py-12 bg-gray-900 text-white text-center">
+        <p>© 2026 Ishika | Built with React, Tailwind CSS & FFmpeg</p>
+        <div className="mt-4 flex justify-center gap-6">
+          <a href="https://linkedin.com/in/ishika-gupta-4ab26932a/" target="_blank" rel="noopener noreferrer" className="hover:text-purple-400 transition">LinkedIn</a>
+          <a href="https://github.com/Ishika-325" target="_blank" rel="noopener noreferrer" className="hover:text-purple-400 transition">GitHub</a>
+          <a href="mailto:gishika325@gmail.com" className="hover:text-purple-400 transition">Email</a>
+        </div>
+      </footer>
+    </div>
   );
 };
 
-export default Landing;
+export default LandingPage;
