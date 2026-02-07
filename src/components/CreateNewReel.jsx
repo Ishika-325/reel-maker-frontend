@@ -85,53 +85,64 @@ const CreateNewReel = () => {
 
   /* ---------------- Generate Reel ---------------- */
   const handleGenerateReel = async () => {
-    if (photos.length === 0) {
-      alert("Please upload at least one photo");
-      return;
+
+    // Pause audio after 5 seconds
+  if (audioRef.current) {
+    audioRef.current.play(); // ensure it is playing
+    setTimeout(() => {
+      audioRef.current.pause();
+    }, 4000); // 4000 ms = 4 seconds
+  }
+
+  if (photos.length === 0) {
+    alert("Please upload at least one photo");
+    return;
+  }
+
+  
+
+  setLoading(true);
+
+  try {
+    const formData = new FormData();
+    formData.append("title", title);
+    formData.append("timezone", timezone);
+
+    photos.forEach((photo) => {
+      formData.append("photos", photo);
+    });
+
+    if (selectedSong) {
+      formData.append(
+        "music",
+        JSON.stringify({
+          trackId: selectedSong.id,
+          title: selectedSong.title,
+          artist: selectedSong.artist,
+          previewUrl: getStreamUrl(selectedSong.id),
+          artwork: selectedSong.artwork || "",
+        })
+      );
     }
 
-    setLoading(true);
+    const response = await axios.post(
+      `${import.meta.env.VITE_API_URL}/reels/create`,
+      formData
+    );
 
-    try {
-      const formData = new FormData();
-      formData.append("title", title);
-      formData.append("timezone", timezone);
+    const newReelId = response.data.reel._id;
+    navigate(`/reels/${newReelId}`);
+  } catch (error) {
+    console.error(error);
+    alert(
+      "Failed to create reel: " +
+        (error.response?.data?.message || error.message)
+    );
+  } finally {
+    setLoading(false);
+  }
+};
 
-      photos.forEach((photo) => {
-        formData.append("photos", photo);
-      });
-
-        if (selectedSong) {
-            formData.append(
-              "music",
-              JSON.stringify({
-                trackId: selectedSong.id,
-                title: selectedSong.title,
-                artist: selectedSong.artist,
-                previewUrl: getStreamUrl(selectedSong.id),
-                artwork: selectedSong.artwork || "",
-              })
-            );
-          }
-
-
-      const response = await axios.post(
-        `${import.meta.env.VITE_API_URL}/reels/create`,
-        formData
-      );
-
-      const newReelId = response.data.reel._id;
-      navigate(`/reels/${newReelId}`);
-    } catch (error) {
-      console.error(error);
-      alert(
-        "Failed to create reel: " +
-          (error.response?.data?.message || error.message)
-      );
-    } finally {
-      setLoading(false);
-    }
-  };
 
   /* ===================== JSX ===================== */
   return (
