@@ -135,7 +135,7 @@ const LandingPage = () => {
           {/* Responsive Video Wrapper */}
 
   <ReactPlayer
-    url="https://player.vimeo.com/video/1162731898"
+    url="https://vimeo.com/1162731898"
     width="100%"
     height="100%"
     controls={true}
