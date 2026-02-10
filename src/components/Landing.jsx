@@ -134,26 +134,26 @@ const LandingPage = () => {
   data-aos="fade-up"
   data-aos-delay={150}
 >
-  <ReactPlayer
-    url="https://vimeo.com/1162731898" // Ensure this URL is valid!
-    className="absolute top-0 left-0"
-    width="100%"
-    height="100%"
-    controls={true}
-    playing={true}   
-    muted={true}     
-    loop={true}
-    playsinline={true}
-    config={{
-      vimeo: {
-        playerOptions: {
-          background: 0, // Set to 1 if you want it to behave like a background
-          autoplay: 1
-        }
-      }
+  {/* Responsive Video Wrapper */}
+
+  <iframe
+    src="https://player.vimeo.com/video/1162731898?badge=0&autopause=0&player_id=0&app_id=58479&autoplay=1&muted=1&loop=1"
+    frameBorder="0"
+    allow="autoplay; fullscreen; picture-in-picture; clipboard-write; encrypted-media; web-share"
+    referrerPolicy="strict-origin-when-cross-origin"
+    title="reel_maker_Demo"
+    style={{
+      position: "absolute",
+      top: 0,
+      left: 0,
+      width: "100%",
+      height: "100%",
+      borderRadius: "16px",
     }}
   />
 </div>
+
+
 
 
         <a
