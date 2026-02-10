@@ -127,22 +127,31 @@ const LandingPage = () => {
         </p>
 
         {/* Responsive Video Wrapper */}
-        <div
-          className="max-w-4xl mx-auto mb-6 rounded-xl overflow-hidden shadow-lg aspect-video"
-          data-aos="fade-up"
-          data-aos-delay={150}
-        >
-          {/* Responsive Video Wrapper */}
-
+        {/* Responsive Video Wrapper */}
+<div 
+  className="relative max-w-4xl mx-auto mb-6 rounded-xl overflow-hidden shadow-lg"
+  style={{ paddingTop: '56.25%' }} // This maintains the 16:9 aspect ratio
+  data-aos="fade-up"
+  data-aos-delay={150}
+>
   <ReactPlayer
-    url="https://vimeo.com/1162731898"
+    url="https://vimeo.com/1162731898" // Ensure this URL is valid!
+    className="absolute top-0 left-0"
     width="100%"
     height="100%"
     controls={true}
-    playing={true}   // ✅ AUTOPLAY ON
-    muted={true}     // ✅ Required for autoplay
+    playing={true}   
+    muted={true}     
     loop={true}
     playsinline={true}
+    config={{
+      vimeo: {
+        playerOptions: {
+          background: 0, // Set to 1 if you want it to behave like a background
+          autoplay: 1
+        }
+      }
+    }}
   />
 </div>
 
